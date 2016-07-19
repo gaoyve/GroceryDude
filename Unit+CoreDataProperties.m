@@ -2,7 +2,7 @@
 //  Unit+CoreDataProperties.m
 //  Grocery Dude
 //
-//  Created by Gerry on 7/18/16.
+//  Created by Gerry on 7/19/16.
 //  Copyright © 2016 Tim Roadley. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,5 +14,6 @@
 @implementation Unit (CoreDataProperties)
 
 @dynamic name;
+@dynamic items;
 
 @end

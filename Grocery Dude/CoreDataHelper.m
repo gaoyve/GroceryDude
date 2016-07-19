@@ -73,12 +73,12 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     if (_store) return; // Don't load store if it's already loaded
     
     
-    BOOL useMigrationManager = YES;
+    BOOL useMigrationManager = NO;
     if (useMigrationManager && [self isMigrationNecessaryForStore:[self storeURL]]) {
         [self performBackgroundManagedMigrationForStore:[self storeURL]];
     } else {
         NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-                                  NSInferMappingModelAutomaticallyOption: @NO,
+                                  NSInferMappingModelAutomaticallyOption: @YES,
                                   NSSQLitePragmasOption: @{@"journal_mode": @"DELETE"}};
         NSError *error = nil;
         _store = [_coordinator addPersistentStoreWithType:NSSQLiteStoreType
@@ -112,6 +112,7 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
             NSLog(@"_context SAVED changes to persistent store");
         } else {
             NSLog(@"Failed to save _context: %@", error);
+            [self showValidationError:error];
         }
     } else {
         NSLog(@"SKIPPED _context save, there are no changes!");
@@ -267,6 +268,41 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
             });
         }
     });
+}
+
+#pragma mark - VALIDATION ERROR HANDLING
+- (void)showValidationError:(NSError *)anError {
+    if (anError && [anError.domain isEqualToString:@"NSCocoaErrorDomain"]) {
+        NSArray *errors = nil;  // holdd all errors
+        NSString *text = @"";    // the error message text of the alert
+        
+        // Populate array with error(s)
+        if (anError.code == NSValidationMultipleErrorsError) {
+            errors = [anError.userInfo objectForKey:NSDetailedErrorsKey];
+        } else {
+            errors = [NSArray arrayWithObject:anError];
+        }
+        // Display the error(s)
+        if (errors && errors.count > 0) {
+            // Build error message text based on errors
+            for (NSError * error in errors) {
+                NSString *entity = [[[error.userInfo objectForKey:@"NSValidationErrorObject"] entity] name];
+                NSString *property = [error.userInfo objectForKey:@"NSValidationError"];
+                
+                switch (error.code) {
+                    case NSValidationRelationshipDeniedDeleteError:
+                        text = [text stringByAppendingFormat:@"%@ delete was denied because there are associated %@\n(Error code %li)\n\n", entity, property, (long)error.code];
+                        break;
+                        
+                    default:
+                        text = [text stringByAppendingFormat:@"Unhandled error code %li in showValidationError method", (long)error.code];
+                        break;
+                }
+            }
+            // dispaly error message text message
+            
+        }
+    }
 }
 @end
 

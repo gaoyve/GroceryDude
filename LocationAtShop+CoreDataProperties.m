@@ -1,5 +1,5 @@
 //
-//  Item+CoreDataProperties.m
+//  LocationAtShop+CoreDataProperties.m
 //  Grocery Dude
 //
 //  Created by Gerry on 7/19/16.
@@ -9,17 +9,11 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Item+CoreDataProperties.h"
+#import "LocationAtShop+CoreDataProperties.h"
 
-@implementation Item (CoreDataProperties)
+@implementation LocationAtShop (CoreDataProperties)
 
-@dynamic colletced;
-@dynamic listed;
-@dynamic name;
-@dynamic photoData;
-@dynamic quantity;
-@dynamic unit;
-@dynamic locationAtHome;
-@dynamic locationAtShop;
+@dynamic aisle;
+@dynamic items;
 
 @end

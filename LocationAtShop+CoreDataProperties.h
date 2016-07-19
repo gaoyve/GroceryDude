@@ -1,5 +1,5 @@
 //
-//  Unit+CoreDataProperties.h
+//  LocationAtShop+CoreDataProperties.h
 //  Grocery Dude
 //
 //  Created by Gerry on 7/19/16.
@@ -9,19 +9,18 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Unit.h"
-#import "Item.h"
+#import "LocationAtShop.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Unit (CoreDataProperties)
+@interface LocationAtShop (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSString *aisle;
 @property (nullable, nonatomic, retain) NSSet<Item *> *items;
 
 @end
 
-@interface Unit (CoreDataGeneratedAccessors)
+@interface LocationAtShop (CoreDataGeneratedAccessors)
 
 - (void)addItemsObject:(Item *)value;
 - (void)removeItemsObject:(Item *)value;

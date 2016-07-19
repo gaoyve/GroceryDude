@@ -16,6 +16,28 @@
 
 #define debug 1
 
+- (void)showUnitAndItemCount {
+    // List how many items there are in the database
+    NSFetchRequest *items = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
+    NSError *itemsError = nil;
+    NSArray *fetchedItems = [[[self cdh] context] executeFetchRequest:items error:&itemsError];
+    if (!fetchedItems) {
+        NSLog(@"%@", itemsError);
+    } else {
+        NSLog(@"Found %lu item(s) ", (unsigned long)[fetchedItems count]);
+    }
+    
+    // List how many units there are in the database
+    NSFetchRequest *units = [NSFetchRequest fetchRequestWithEntityName:@"Unit"];
+    NSError *unitsError = nil;
+    NSArray *fetchedUnits = [[[self cdh] context] executeFetchRequest:units error:&unitsError];
+    if (!fetchedUnits) {
+        NSLog(@"%@", unitsError);
+    } else {
+        NSLog(@"Found %lu unit(s)", (unsigned long)[fetchedUnits count]);
+    }
+}
+
 - (void)demo {
     if (debug == 1) {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
@@ -45,17 +67,56 @@
 //    }
 //    [_coreDataHelper saveContext];
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Unit"];
-    [request setFetchLimit:50];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:&error];
-    
-    if (error) NSLog(@"%@", error);
-    else {
-        for (Unit *unit in fetchedObjects) {
-            NSLog(@"Fetched Object = %@", unit.name);
-        }
-    }
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Unit"];
+//    [request setFetchLimit:50];
+//    NSError *error = nil;
+//    NSArray *fetchedObjects = [_coreDataHelper.context executeFetchRequest:request error:&error];
+//    
+//    if (error) NSLog(@"%@", error);
+//    else {
+//        for (Unit *unit in fetchedObjects) {
+//            NSLog(@"Fetched Object = %@", unit.name);
+//        }
+//    }
+//    Unit *kg = [NSEntityDescription insertNewObjectForEntityForName:@"Unit" inManagedObjectContext:[[self cdh] context]];
+//    Item *oranges = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:[[self cdh] context]];
+//    Item *bananas = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:[[self cdh] context]];
+//    
+//    kg.name          = @"Kg";
+//    oranges.name     = @"Oranges";
+//    bananas.name     = @"Bananas";
+//    oranges.quantity = [NSNumber numberWithInteger:1];
+//    bananas.quantity = [NSNumber numberWithInteger:4];
+//    oranges.listed   = [NSNumber numberWithBool:YES];
+//    bananas.listed   = [NSNumber numberWithBool:YES];
+//    oranges.unit     = kg;
+//    bananas.unit     = kg;
+//    
+//    NSLog(@"Inserted %@%@ %@", oranges.quantity, oranges.unit.name, oranges.name);
+//    NSLog(@"Inserted %@%@ %@", bananas.quantity, bananas.unit.name, bananas.name);
+//    
+//    [[self cdh] saveContext];
+//    NSLog(@"Before deletion of the unit entity:");
+//    [self showUnitAndItemCount];
+//    
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Unit"];
+//    NSPredicate *filter = [NSPredicate predicateWithFormat:@"name == %@", @"Kg"];
+//    [request setPredicate:filter];
+//    NSArray *kgUnit = [[[self cdh] context] executeFetchRequest:request error:nil];
+//    for (Unit *unit in kgUnit) {
+//        NSError *error;
+//        if ([unit validateForDelete:&error]) {
+//            NSLog(@"Deleting '%@'", unit.name);
+//            [_coreDataHelper.context deleteObject:unit];
+//        } else {
+//            NSLog(@"Failed to delete %@, Error: %@", unit.name, error.localizedDescription);
+//        }
+//    }
+//    
+//    NSLog(@"After deletion of the unit entity");
+//    [self showUnitAndItemCount];
+//    
+//    [[self cdh] saveContext];
 }
 
 - (CoreDataHelper *)cdh {
