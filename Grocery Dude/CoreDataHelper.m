@@ -202,11 +202,11 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     if ([keyPath isEqualToString:@"migrationProgress"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             float progress = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-            self.migrationVC.progressView.progress = progress;
+            self.migrationViewController.progressView.progress = progress;
             int percentage = progress * 100;
             NSString *string = [NSString stringWithFormat:@"Migration Progress: %i%%", percentage];
             NSLog(@"%@",string);
-            self.migrationVC.label.text = string;
+            self.migrationViewController.label.text = string;
         });
     }
 }
@@ -239,10 +239,10 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     
     // Show migration progress view preventing the user from using the app
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.migrationVC = [sb instantiateViewControllerWithIdentifier:@"migration"];
+    self.migrationViewController = [sb instantiateViewControllerWithIdentifier:@"migration"];
     UIApplication *sa = [UIApplication sharedApplication];
     UINavigationController *nc = (UINavigationController *)sa.keyWindow.rootViewController;
-    [nc presentViewController:self.migrationVC animated:NO completion:nil];
+    [nc presentViewController:self.migrationViewController animated:NO completion:nil];
     
     // Perform migration in the background, so it doesn't freeze the UI.
     // This way progress can be shown to the user
@@ -263,8 +263,8 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
                 } else {
                     NSLog(@"Successfully added a migrated store: %@", _store);
                 }
-                [self.migrationVC dismissViewControllerAnimated:NO completion:nil];
-                self.migrationVC = nil;
+                [self.migrationViewController dismissViewControllerAnimated:NO completion:nil];
+                self.migrationViewController = nil;
             });
         }
     });

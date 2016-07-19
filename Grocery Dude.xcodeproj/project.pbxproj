@@ -41,6 +41,9 @@
 		CB6513CA1D3E0DCE0023BE92 /* LocationAtHome.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513C21D3E0DCE0023BE92 /* LocationAtHome.m */; };
 		CB6513CB1D3E0DCE0023BE92 /* LocationAtShop+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513C41D3E0DCE0023BE92 /* LocationAtShop+CoreDataProperties.m */; };
 		CB6513CC1D3E0DCE0023BE92 /* LocationAtShop.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513C61D3E0DCE0023BE92 /* LocationAtShop.m */; };
+		CB6513CF1D3E16870023BE92 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */; };
+		CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */; };
+		CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC423FA1D3E545E004B10B7 /* ShopTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,12 @@
 		CB6513C41D3E0DCE0023BE92 /* LocationAtShop+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LocationAtShop+CoreDataProperties.m"; path = "Grocery Dude/LocationAtShop+CoreDataProperties.m"; sourceTree = "<group>"; };
 		CB6513C51D3E0DCE0023BE92 /* LocationAtShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationAtShop.h; path = "Grocery Dude/LocationAtShop.h"; sourceTree = "<group>"; };
 		CB6513C61D3E0DCE0023BE92 /* LocationAtShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationAtShop.m; path = "Grocery Dude/LocationAtShop.m"; sourceTree = "<group>"; };
+		CB6513CD1D3E16870023BE92 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		CBC423F61D3E2BDA004B10B7 /* PrepareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareTableViewController.h; sourceTree = "<group>"; };
+		CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareTableViewController.m; sourceTree = "<group>"; };
+		CBC423F91D3E545E004B10B7 /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
+		CBC423FA1D3E545E004B10B7 /* ShopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,9 +185,10 @@
 			isa = PBXGroup;
 			children = (
 				CB6513A11D3DDA800023BE92 /* NSManagedObject Subclasses */,
-				CB5C67C51D3CC231002C4754 /* Grocery Dude View Controllers */,
-				CB5C67AB1D3C9561002C4754 /* Data Model */,
 				CB5C67A71D3C7480002C4754 /* Generic Core Data Classes */,
+				CB5C67AB1D3C9561002C4754 /* Data Model */,
+				CB5C67C51D3CC231002C4754 /* Grocery Dude View Controllers */,
+				CBC423F21D3E2AB4004B10B7 /* Grocery Dude Table View Controllers */,
 				42DA9F9517E8F9EB000E7187 /* AppDelegate.h */,
 				42DA9F9617E8F9EB000E7187 /* AppDelegate.m */,
 				42DA9F9817E8F9EB000E7187 /* Main.storyboard */,
@@ -224,6 +234,8 @@
 			children = (
 				CB5C67A81D3C74BF002C4754 /* CoreDataHelper.h */,
 				CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */,
+				CB6513CD1D3E16870023BE92 /* CoreDataTableViewController.h */,
+				CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */,
 			);
 			name = "Generic Core Data Classes";
 			sourceTree = "<group>";
@@ -281,6 +293,17 @@
 			);
 			name = "NSManagedObject Subclasses";
 			path = ..;
+			sourceTree = "<group>";
+		};
+		CBC423F21D3E2AB4004B10B7 /* Grocery Dude Table View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CBC423F61D3E2BDA004B10B7 /* PrepareTableViewController.h */,
+				CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */,
+				CBC423F91D3E545E004B10B7 /* ShopTableViewController.h */,
+				CBC423FA1D3E545E004B10B7 /* ShopTableViewController.m */,
+			);
+			name = "Grocery Dude Table View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,9 +405,12 @@
 			files = (
 				CB5C67CF1D3CDC3D002C4754 /* Unit.m in Sources */,
 				CB5C67C21D3CBDB3002C4754 /* Amount.m in Sources */,
+				CB6513CF1D3E16870023BE92 /* CoreDataTableViewController.m in Sources */,
 				CB6513C91D3E0DCE0023BE92 /* LocationAtHome+CoreDataProperties.m in Sources */,
 				CB5C67CE1D3CDC3D002C4754 /* Unit+CoreDataProperties.m in Sources */,
+				CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */,
 				CB5C67BA1D3CB678002C4754 /* Amount+CoreDataProperties.m in Sources */,
+				CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */,
 				CB6513C81D3E0DCE0023BE92 /* Location.m in Sources */,
 				CB5C67B31D3C9C5C002C4754 /* Amount+CoreDataProperties.m in Sources */,
 				42DA9F9D17E8F9EB000E7187 /* ViewController.m in Sources */,

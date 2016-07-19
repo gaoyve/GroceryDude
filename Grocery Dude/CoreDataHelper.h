@@ -16,7 +16,7 @@
 @property (nonatomic, readonly) NSManagedObjectModel          *model;
 @property (nonatomic, readonly) NSPersistentStoreCoordinator  *coordinator;
 @property (nonatomic, readonly) NSPersistentStore             *store;
-@property (nonatomic, retain)   MigrationViewController       *migrationVC;
+@property (nonatomic, retain)   MigrationViewController       *migrationViewController;
 
 - (void)setupCoreData;
 - (void)saveContext;
