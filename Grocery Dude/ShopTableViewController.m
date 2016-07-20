@@ -11,6 +11,7 @@
 #import "Item.h"
 #import "Unit.h"
 #import "AppDelegate.h"
+#import "ItemViewController.h"
 
 @interface ShopTableViewController ()
 
@@ -137,4 +138,23 @@
     }
 }
 
+#pragma mark - SEGUE
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    ItemViewController *itemViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewController"];
+    itemViewController.selectedItemID = [[self.frc objectAtIndexPath:indexPath] objectID];
+    [self.navigationController pushViewController:itemViewController animated:YES];
+}
+
 @end
+
+
+
+
+
+
+
+

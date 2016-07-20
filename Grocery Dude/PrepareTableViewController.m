@@ -11,6 +11,7 @@
 #import "Item.h"
 #import "Unit.h"
 #import "AppDelegate.h"
+#import "ItemViewController.h"
 
 @interface PrepareTableViewController ()
 
@@ -119,7 +120,7 @@
     NSArray *shoppingList = [cdh.context executeFetchRequest:request error:nil];
     
     if (shoppingList.count > 0) {
-        self.clearConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear Rntire Shopping List"
+        self.clearConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear Rntire Shopping List?"
                                                                    delegate:self
                                                           cancelButtonTitle:@"Cancel"
                                                      destructiveButtonTitle:@"Clear"
@@ -158,19 +159,35 @@
         item.listed = [NSNumber numberWithBool:NO];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+#pragma mark - SEGUE
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    ItemViewController *itemViewController = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"Add Item Segue"]) {
+        CoreDataHelper *cdh = [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
+        Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
+                                                      inManagedObjectContext:cdh.context];
+        NSError *error = nil;
+        if (![cdh.context obtainPermanentIDsForObjects:[NSArray arrayWithObject:newItem]
+                                                 error:&error]) {
+            NSLog(@"Couldn't obtain a permanent ID for object %@", error);
+        }
+        itemViewController.selectedItemID = newItem.objectID;
+    } else {
+        NSLog(@"Unidentified Segue Attempted!");
+    }
 }
-*/
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    ItemViewController *itemViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewController"];
+    itemViewController.selectedItemID = [[self.frc objectAtIndexPath:indexPath] objectID];
+    [self.navigationController pushViewController:itemViewController animated:YES];
+}
 
 @end

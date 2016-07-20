@@ -42,6 +42,13 @@
 		CB6513CB1D3E0DCE0023BE92 /* LocationAtShop+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513C41D3E0DCE0023BE92 /* LocationAtShop+CoreDataProperties.m */; };
 		CB6513CC1D3E0DCE0023BE92 /* LocationAtShop.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513C61D3E0DCE0023BE92 /* LocationAtShop.m */; };
 		CB6513CF1D3E16870023BE92 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */; };
+		CB8B49581D3F1A72005C51A5 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8B49571D3F1A72005C51A5 /* ItemViewController.m */; };
+		CBA519771D3F411000774562 /* UnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519761D3F411000774562 /* UnitsTableViewController.m */; };
+		CBA5197A1D3F461300774562 /* UnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519791D3F461300774562 /* UnitViewController.m */; };
+		CBA519831D3F4C4A00774562 /* LocationAtHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5197C1D3F4C4A00774562 /* LocationAtHomeVC.m */; };
+		CBA519841D3F4C4A00774562 /* LocationAtShopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5197E1D3F4C4A00774562 /* LocationAtShopVC.m */; };
+		CBA519851D3F4C4A00774562 /* LocationsAtHomeTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519801D3F4C4A00774562 /* LocationsAtHomeTVC.m */; };
+		CBA519861D3F4C4A00774562 /* LocationsAtShopTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519821D3F4C4A00774562 /* LocationsAtShopTVC.m */; };
 		CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */; };
 		CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC423FA1D3E545E004B10B7 /* ShopTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -119,6 +126,20 @@
 		CB6513C61D3E0DCE0023BE92 /* LocationAtShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationAtShop.m; path = "Grocery Dude/LocationAtShop.m"; sourceTree = "<group>"; };
 		CB6513CD1D3E16870023BE92 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		CB8B49561D3F1A72005C51A5 /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		CB8B49571D3F1A72005C51A5 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
+		CBA519751D3F411000774562 /* UnitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitsTableViewController.h; sourceTree = "<group>"; };
+		CBA519761D3F411000774562 /* UnitsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsTableViewController.m; sourceTree = "<group>"; };
+		CBA519781D3F461300774562 /* UnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitViewController.h; sourceTree = "<group>"; };
+		CBA519791D3F461300774562 /* UnitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitViewController.m; sourceTree = "<group>"; };
+		CBA5197B1D3F4C4A00774562 /* LocationAtHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationAtHomeVC.h; sourceTree = "<group>"; };
+		CBA5197C1D3F4C4A00774562 /* LocationAtHomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationAtHomeVC.m; sourceTree = "<group>"; };
+		CBA5197D1D3F4C4A00774562 /* LocationAtShopVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationAtShopVC.h; sourceTree = "<group>"; };
+		CBA5197E1D3F4C4A00774562 /* LocationAtShopVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationAtShopVC.m; sourceTree = "<group>"; };
+		CBA5197F1D3F4C4A00774562 /* LocationsAtHomeTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsAtHomeTVC.h; sourceTree = "<group>"; };
+		CBA519801D3F4C4A00774562 /* LocationsAtHomeTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsAtHomeTVC.m; sourceTree = "<group>"; };
+		CBA519811D3F4C4A00774562 /* LocationsAtShopTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsAtShopTVC.h; sourceTree = "<group>"; };
+		CBA519821D3F4C4A00774562 /* LocationsAtShopTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsAtShopTVC.m; sourceTree = "<group>"; };
 		CBC423F61D3E2BDA004B10B7 /* PrepareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareTableViewController.h; sourceTree = "<group>"; };
 		CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareTableViewController.m; sourceTree = "<group>"; };
 		CBC423F91D3E545E004B10B7 /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
@@ -187,8 +208,8 @@
 				CB6513A11D3DDA800023BE92 /* NSManagedObject Subclasses */,
 				CB5C67A71D3C7480002C4754 /* Generic Core Data Classes */,
 				CB5C67AB1D3C9561002C4754 /* Data Model */,
-				CB5C67C51D3CC231002C4754 /* Grocery Dude View Controllers */,
 				CBC423F21D3E2AB4004B10B7 /* Grocery Dude Table View Controllers */,
+				CB5C67C51D3CC231002C4754 /* Grocery Dude View Controllers */,
 				42DA9F9517E8F9EB000E7187 /* AppDelegate.h */,
 				42DA9F9617E8F9EB000E7187 /* AppDelegate.m */,
 				42DA9F9817E8F9EB000E7187 /* Main.storyboard */,
@@ -255,6 +276,14 @@
 			children = (
 				CB5C67C61D3CC281002C4754 /* MigrationViewController.h */,
 				CB5C67C71D3CC281002C4754 /* MigrationViewController.m */,
+				CB8B49561D3F1A72005C51A5 /* ItemViewController.h */,
+				CB8B49571D3F1A72005C51A5 /* ItemViewController.m */,
+				CBA519781D3F461300774562 /* UnitViewController.h */,
+				CBA519791D3F461300774562 /* UnitViewController.m */,
+				CBA5197B1D3F4C4A00774562 /* LocationAtHomeVC.h */,
+				CBA5197C1D3F4C4A00774562 /* LocationAtHomeVC.m */,
+				CBA5197D1D3F4C4A00774562 /* LocationAtShopVC.h */,
+				CBA5197E1D3F4C4A00774562 /* LocationAtShopVC.m */,
 			);
 			name = "Grocery Dude View Controllers";
 			sourceTree = "<group>";
@@ -302,6 +331,12 @@
 				CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */,
 				CBC423F91D3E545E004B10B7 /* ShopTableViewController.h */,
 				CBC423FA1D3E545E004B10B7 /* ShopTableViewController.m */,
+				CBA519751D3F411000774562 /* UnitsTableViewController.h */,
+				CBA519761D3F411000774562 /* UnitsTableViewController.m */,
+				CBA5197F1D3F4C4A00774562 /* LocationsAtHomeTVC.h */,
+				CBA519801D3F4C4A00774562 /* LocationsAtHomeTVC.m */,
+				CBA519811D3F4C4A00774562 /* LocationsAtShopTVC.h */,
+				CBA519821D3F4C4A00774562 /* LocationsAtShopTVC.m */,
 			);
 			name = "Grocery Dude Table View Controllers";
 			sourceTree = "<group>";
@@ -404,15 +439,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB5C67CF1D3CDC3D002C4754 /* Unit.m in Sources */,
+				CB8B49581D3F1A72005C51A5 /* ItemViewController.m in Sources */,
 				CB5C67C21D3CBDB3002C4754 /* Amount.m in Sources */,
 				CB6513CF1D3E16870023BE92 /* CoreDataTableViewController.m in Sources */,
 				CB6513C91D3E0DCE0023BE92 /* LocationAtHome+CoreDataProperties.m in Sources */,
+				CBA519771D3F411000774562 /* UnitsTableViewController.m in Sources */,
+				CBA519831D3F4C4A00774562 /* LocationAtHomeVC.m in Sources */,
+				CBA5197A1D3F461300774562 /* UnitViewController.m in Sources */,
 				CB5C67CE1D3CDC3D002C4754 /* Unit+CoreDataProperties.m in Sources */,
 				CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */,
 				CB5C67BA1D3CB678002C4754 /* Amount+CoreDataProperties.m in Sources */,
 				CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */,
 				CB6513C81D3E0DCE0023BE92 /* Location.m in Sources */,
 				CB5C67B31D3C9C5C002C4754 /* Amount+CoreDataProperties.m in Sources */,
+				CBA519851D3F4C4A00774562 /* LocationsAtHomeTVC.m in Sources */,
+				CBA519841D3F4C4A00774562 /* LocationAtShopVC.m in Sources */,
 				42DA9F9D17E8F9EB000E7187 /* ViewController.m in Sources */,
 				42DA9F9717E8F9EB000E7187 /* AppDelegate.m in Sources */,
 				CB5C67C41D3CBE50002C4754 /* Model2toModel3.xcmappingmodel in Sources */,
@@ -420,6 +461,7 @@
 				CB6513CA1D3E0DCE0023BE92 /* LocationAtHome.m in Sources */,
 				CB5C67AE1D3C9583002C4754 /* Model.xcdatamodeld in Sources */,
 				CB5C67BB1D3CB678002C4754 /* Measurement.m in Sources */,
+				CBA519861D3F4C4A00774562 /* LocationsAtShopTVC.m in Sources */,
 				CB6513C71D3E0DCE0023BE92 /* Item+CoreDataProperties.m in Sources */,
 				CB6513CC1D3E0DCE0023BE92 /* LocationAtShop.m in Sources */,
 				CB5C67AA1D3C74BF002C4754 /* CoreDataHelper.m in Sources */,
