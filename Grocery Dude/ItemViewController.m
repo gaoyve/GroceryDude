@@ -53,8 +53,7 @@
     CGFloat keyboardTop = keyboardRect.origin.y;
     
     // Resize scroll view
-    CGRect newScrollViewFrame =
-    CGRectMake(0, 0, self.view.bounds.size.width, keyboardTop);
+    CGRect newScrollViewFrame = CGRectMake(0, 0, self.view.bounds.size.width, keyboardTop);
     newScrollViewFrame.size.height = keyboardTop - self.view.bounds.origin.y;
     [self.scrollView setFrame:newScrollViewFrame];
     
