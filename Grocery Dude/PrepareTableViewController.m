@@ -30,8 +30,10 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
     
     request.sortDescriptors = [NSArray arrayWithObjects:
-                               [NSSortDescriptor sortDescriptorWithKey:@"locationAtHome.storeIn" ascending:YES],
-                               [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES],
+                               [NSSortDescriptor sortDescriptorWithKey:@"locationAtHome.storeIn"
+                                                             ascending:YES],
+                               [NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                             ascending:YES],
                                nil];
     [request setFetchBatchSize:50];
     self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request

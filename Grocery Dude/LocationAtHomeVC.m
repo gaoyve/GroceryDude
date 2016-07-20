@@ -72,7 +72,6 @@
                                                                           action:@selector(hideKeyboard)];
     [tgr setCancelsTouchesInView:NO];
     [self.view addGestureRecognizer:tgr];
-    [self.view endEditing:YES];
 }
 - (void)hideKeyboard {
     if (debug==1) {

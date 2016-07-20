@@ -49,6 +49,10 @@
 		CBA519841D3F4C4A00774562 /* LocationAtShopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5197E1D3F4C4A00774562 /* LocationAtShopVC.m */; };
 		CBA519851D3F4C4A00774562 /* LocationsAtHomeTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519801D3F4C4A00774562 /* LocationsAtHomeTVC.m */; };
 		CBA519861D3F4C4A00774562 /* LocationsAtShopTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519821D3F4C4A00774562 /* LocationsAtShopTVC.m */; };
+		CBA519891D3F61B900774562 /* CoreDataPickerTF.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519881D3F61B900774562 /* CoreDataPickerTF.m */; };
+		CBA5198D1D3F764100774562 /* UnitPickerTF.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5198C1D3F764100774562 /* UnitPickerTF.m */; };
+		CBA519921D3F896B00774562 /* LocationAtHomePickerTF.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5198F1D3F896B00774562 /* LocationAtHomePickerTF.m */; };
+		CBA519931D3F896B00774562 /* LocationAtShopPickerTF.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA519911D3F896B00774562 /* LocationAtShopPickerTF.m */; };
 		CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */; };
 		CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC423FA1D3E545E004B10B7 /* ShopTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -140,6 +144,14 @@
 		CBA519801D3F4C4A00774562 /* LocationsAtHomeTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsAtHomeTVC.m; sourceTree = "<group>"; };
 		CBA519811D3F4C4A00774562 /* LocationsAtShopTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsAtShopTVC.h; sourceTree = "<group>"; };
 		CBA519821D3F4C4A00774562 /* LocationsAtShopTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsAtShopTVC.m; sourceTree = "<group>"; };
+		CBA519871D3F61B900774562 /* CoreDataPickerTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataPickerTF.h; sourceTree = "<group>"; };
+		CBA519881D3F61B900774562 /* CoreDataPickerTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataPickerTF.m; sourceTree = "<group>"; };
+		CBA5198B1D3F764100774562 /* UnitPickerTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerTF.h; sourceTree = "<group>"; };
+		CBA5198C1D3F764100774562 /* UnitPickerTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerTF.m; sourceTree = "<group>"; };
+		CBA5198E1D3F896B00774562 /* LocationAtHomePickerTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationAtHomePickerTF.h; sourceTree = "<group>"; };
+		CBA5198F1D3F896B00774562 /* LocationAtHomePickerTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationAtHomePickerTF.m; sourceTree = "<group>"; };
+		CBA519901D3F896B00774562 /* LocationAtShopPickerTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationAtShopPickerTF.h; sourceTree = "<group>"; };
+		CBA519911D3F896B00774562 /* LocationAtShopPickerTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationAtShopPickerTF.m; sourceTree = "<group>"; };
 		CBC423F61D3E2BDA004B10B7 /* PrepareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareTableViewController.h; sourceTree = "<group>"; };
 		CBC423F71D3E2BDA004B10B7 /* PrepareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareTableViewController.m; sourceTree = "<group>"; };
 		CBC423F91D3E545E004B10B7 /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
@@ -210,6 +222,7 @@
 				CB5C67AB1D3C9561002C4754 /* Data Model */,
 				CBC423F21D3E2AB4004B10B7 /* Grocery Dude Table View Controllers */,
 				CB5C67C51D3CC231002C4754 /* Grocery Dude View Controllers */,
+				CBA5198A1D3F75CE00774562 /* Grocery Dude Picker Text Fields */,
 				42DA9F9517E8F9EB000E7187 /* AppDelegate.h */,
 				42DA9F9617E8F9EB000E7187 /* AppDelegate.m */,
 				42DA9F9817E8F9EB000E7187 /* Main.storyboard */,
@@ -257,6 +270,8 @@
 				CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */,
 				CB6513CD1D3E16870023BE92 /* CoreDataTableViewController.h */,
 				CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */,
+				CBA519871D3F61B900774562 /* CoreDataPickerTF.h */,
+				CBA519881D3F61B900774562 /* CoreDataPickerTF.m */,
 			);
 			name = "Generic Core Data Classes";
 			sourceTree = "<group>";
@@ -322,6 +337,19 @@
 			);
 			name = "NSManagedObject Subclasses";
 			path = ..;
+			sourceTree = "<group>";
+		};
+		CBA5198A1D3F75CE00774562 /* Grocery Dude Picker Text Fields */ = {
+			isa = PBXGroup;
+			children = (
+				CBA5198E1D3F896B00774562 /* LocationAtHomePickerTF.h */,
+				CBA5198F1D3F896B00774562 /* LocationAtHomePickerTF.m */,
+				CBA519901D3F896B00774562 /* LocationAtShopPickerTF.h */,
+				CBA519911D3F896B00774562 /* LocationAtShopPickerTF.m */,
+				CBA5198B1D3F764100774562 /* UnitPickerTF.h */,
+				CBA5198C1D3F764100774562 /* UnitPickerTF.m */,
+			);
+			name = "Grocery Dude Picker Text Fields";
 			sourceTree = "<group>";
 		};
 		CBC423F21D3E2AB4004B10B7 /* Grocery Dude Table View Controllers */ = {
@@ -440,7 +468,9 @@
 			files = (
 				CB5C67CF1D3CDC3D002C4754 /* Unit.m in Sources */,
 				CB8B49581D3F1A72005C51A5 /* ItemViewController.m in Sources */,
+				CBA519921D3F896B00774562 /* LocationAtHomePickerTF.m in Sources */,
 				CB5C67C21D3CBDB3002C4754 /* Amount.m in Sources */,
+				CBA5198D1D3F764100774562 /* UnitPickerTF.m in Sources */,
 				CB6513CF1D3E16870023BE92 /* CoreDataTableViewController.m in Sources */,
 				CB6513C91D3E0DCE0023BE92 /* LocationAtHome+CoreDataProperties.m in Sources */,
 				CBA519771D3F411000774562 /* UnitsTableViewController.m in Sources */,
@@ -467,6 +497,8 @@
 				CB5C67AA1D3C74BF002C4754 /* CoreDataHelper.m in Sources */,
 				CB5C67B41D3C9C5C002C4754 /* Item.m in Sources */,
 				CB5C67C81D3CC281002C4754 /* MigrationViewController.m in Sources */,
+				CBA519931D3F896B00774562 /* LocationAtShopPickerTF.m in Sources */,
+				CBA519891D3F61B900774562 /* CoreDataPickerTF.m in Sources */,
 				42DA9F9317E8F9EB000E7187 /* main.m in Sources */,
 				CB5C67C11D3CBDB3002C4754 /* Amount+CoreDataProperties.m in Sources */,
 				CB5C67D11D3CDC89002C4754 /* Model3toModel4.xcmappingmodel in Sources */,

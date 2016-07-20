@@ -84,8 +84,7 @@
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
     LocationAtHomeVC *locationAtHomeVC = segue.destinationViewController;
-    if ([segue.identifier isEqualToString:@"Add Object Segue"])
-    {
+    if ([segue.identifier isEqualToString:@"Add Object Segue"]) {
         CoreDataHelper *cdh = [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
         LocationAtHome *newLocationAtHome =
         [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtHome"
@@ -95,13 +94,10 @@
             NSLog(@"Couldn't obtain a permanent ID for object %@", error);
         }
         locationAtHomeVC.selectedObjectID = newLocationAtHome.objectID;
-    }
-    else if ([segue.identifier isEqualToString:@"Edit Object Segue"])
-    {
+    } else if ([segue.identifier isEqualToString:@"Edit Object Segue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         locationAtHomeVC.selectedObjectID = [[self.frc objectAtIndexPath:indexPath] objectID];
-    }
-    else {
+    } else {
         NSLog(@"Unidentified Segue Attempted!");
     }
 }
