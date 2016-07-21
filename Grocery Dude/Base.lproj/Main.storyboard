@@ -205,7 +205,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="bY0-8R-lgy" kind="push" identifier="Edit Object Segue" trigger="accessoryAction" id="p4E-Ft-jm0"/>
+                                    <segue destination="bY0-8R-lgy" kind="push" identifier="Edit Object Segue" id="wko-3A-LGd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -578,7 +578,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Wgk-Ag-6D0" kind="push" id="iuO-sM-IoF"/>
+                                    <segue destination="Wgk-Ag-6D0" kind="push" identifier="Edit Object Segue" id="iuO-sM-IoF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -686,8 +686,8 @@
         <image name="shop" width="30" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="wko-3A-LGd"/>
         <segue reference="WJp-VU-7v1"/>
-        <segue reference="faC-W7-MAF"/>
-        <segue reference="iuO-sM-IoF"/>
+        <segue reference="xMV-fA-79O"/>
     </inferredMetricsTieBreakers>
 </document>

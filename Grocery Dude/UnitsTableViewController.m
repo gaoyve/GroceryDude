@@ -96,8 +96,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
     UnitViewController *unitVC = segue.destinationViewController;
-    if ([segue.identifier isEqualToString:@"Add Object Segue"])
-    {
+    if ([segue.identifier isEqualToString:@"Add Object Segue"]) {
         CoreDataHelper *cdh =
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
         Unit *newUnit =
@@ -109,9 +108,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             NSLog(@"Couldn't obtain a permanent ID for object %@", error);
         }
         unitVC.selectedObjectID = newUnit.objectID;
-    }
-    else if ([segue.identifier isEqualToString:@"Edit Object Segue"])
-    {
+    } else if ([segue.identifier isEqualToString:@"Edit Object Segue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         unitVC.selectedObjectID =
         [[self.frc objectAtIndexPath:indexPath] objectID];

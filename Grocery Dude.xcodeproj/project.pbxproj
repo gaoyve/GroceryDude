@@ -21,6 +21,8 @@
 		42DA9FA817E8F9EC000E7187 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DA9F8A17E8F9EB000E7187 /* UIKit.framework */; };
 		42DA9FB017E8F9EC000E7187 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42DA9FAE17E8F9EC000E7187 /* InfoPlist.strings */; };
 		42DA9FB217E8F9EC000E7187 /* Grocery_DudeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DA9FB117E8F9EC000E7187 /* Grocery_DudeTests.m */; };
+		CB15DD031D40963600E39C46 /* DefaultData.xml in Resources */ = {isa = PBXBuildFile; fileRef = CB15DD021D40963600E39C46 /* DefaultData.xml */; };
+		CB5932C31D40F3AC006C747D /* DefaultData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CB5932C21D40F3AC006C747D /* DefaultData.sqlite */; };
 		CB5C67A61D3BE0D9002C4754 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5C67A51D3BE0D9002C4754 /* CoreData.framework */; };
 		CB5C67AA1D3C74BF002C4754 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */; };
 		CB5C67AE1D3C9583002C4754 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67AC1D3C9583002C4754 /* Model.xcdatamodeld */; };
@@ -35,6 +37,7 @@
 		CB5C67CE1D3CDC3D002C4754 /* Unit+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67CB1D3CDC3D002C4754 /* Unit+CoreDataProperties.m */; };
 		CB5C67CF1D3CDC3D002C4754 /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67CD1D3CDC3D002C4754 /* Unit.m */; };
 		CB5C67D11D3CDC89002C4754 /* Model3toModel4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67D01D3CDC89002C4754 /* Model3toModel4.xcmappingmodel */; };
+		CB641DD31D40A7CD00F31C00 /* CoreDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CB641DD21D40A7CD00F31C00 /* CoreDataImporter.m */; };
 		CB6513C71D3E0DCE0023BE92 /* Item+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513BC1D3E0DCE0023BE92 /* Item+CoreDataProperties.m */; };
 		CB6513C81D3E0DCE0023BE92 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513BE1D3E0DCE0023BE92 /* Location.m */; };
 		CB6513C91D3E0DCE0023BE92 /* LocationAtHome+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6513C01D3E0DCE0023BE92 /* LocationAtHome+CoreDataProperties.m */; };
@@ -87,6 +90,8 @@
 		42DA9FAD17E8F9EC000E7187 /* Grocery DudeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grocery DudeTests-Info.plist"; sourceTree = "<group>"; };
 		42DA9FAF17E8F9EC000E7187 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42DA9FB117E8F9EC000E7187 /* Grocery_DudeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Grocery_DudeTests.m; sourceTree = "<group>"; };
+		CB15DD021D40963600E39C46 /* DefaultData.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DefaultData.xml; sourceTree = "<group>"; };
+		CB5932C21D40F3AC006C747D /* DefaultData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefaultData.sqlite; sourceTree = "<group>"; };
 		CB5C67A51D3BE0D9002C4754 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB5C67A81D3C74BF002C4754 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
@@ -114,6 +119,8 @@
 		CB5C67CC1D3CDC3D002C4754 /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unit.h; path = "Grocery Dude/Unit.h"; sourceTree = "<group>"; };
 		CB5C67CD1D3CDC3D002C4754 /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Unit.m; path = "Grocery Dude/Unit.m"; sourceTree = "<group>"; };
 		CB5C67D01D3CDC89002C4754 /* Model3toModel4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model3toModel4.xcmappingmodel; sourceTree = "<group>"; };
+		CB641DD11D40A7CD00F31C00 /* CoreDataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataImporter.h; sourceTree = "<group>"; };
+		CB641DD21D40A7CD00F31C00 /* CoreDataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataImporter.m; sourceTree = "<group>"; };
 		CB6513A01D3DD7F30023BE92 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
 		CB6513A21D3E0BE50023BE92 /* Model 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.xcdatamodel"; sourceTree = "<group>"; };
 		CB6513BB1D3E0DCE0023BE92 /* Location+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Location+CoreDataProperties.h"; path = "Grocery Dude/Location+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -272,6 +279,8 @@
 				CB6513CE1D3E16870023BE92 /* CoreDataTableViewController.m */,
 				CBA519871D3F61B900774562 /* CoreDataPickerTF.h */,
 				CBA519881D3F61B900774562 /* CoreDataPickerTF.m */,
+				CB641DD11D40A7CD00F31C00 /* CoreDataImporter.h */,
+				CB641DD21D40A7CD00F31C00 /* CoreDataImporter.m */,
 			);
 			name = "Generic Core Data Classes";
 			sourceTree = "<group>";
@@ -279,6 +288,8 @@
 		CB5C67AB1D3C9561002C4754 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB5932C21D40F3AC006C747D /* DefaultData.sqlite */,
+				CB15DD021D40963600E39C46 /* DefaultData.xml */,
 				CB5C67AC1D3C9583002C4754 /* Model.xcdatamodeld */,
 				CB5C67C31D3CBE50002C4754 /* Model2toModel3.xcmappingmodel */,
 				CB5C67D01D3CDC89002C4754 /* Model3toModel4.xcmappingmodel */,
@@ -445,7 +456,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB5932C31D40F3AC006C747D /* DefaultData.sqlite in Resources */,
 				42DA9F9F17E8F9EB000E7187 /* Images.xcassets in Resources */,
+				CB15DD031D40963600E39C46 /* DefaultData.xml in Resources */,
 				42DA9F9117E8F9EB000E7187 /* InfoPlist.strings in Resources */,
 				42DA9F9A17E8F9EB000E7187 /* Main.storyboard in Resources */,
 			);
@@ -479,6 +492,7 @@
 				CB5C67CE1D3CDC3D002C4754 /* Unit+CoreDataProperties.m in Sources */,
 				CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */,
 				CB5C67BA1D3CB678002C4754 /* Amount+CoreDataProperties.m in Sources */,
+				CB641DD31D40A7CD00F31C00 /* CoreDataImporter.m in Sources */,
 				CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */,
 				CB6513C81D3E0DCE0023BE92 /* Location.m in Sources */,
 				CB5C67B31D3C9C5C002C4754 /* Amount+CoreDataProperties.m in Sources */,

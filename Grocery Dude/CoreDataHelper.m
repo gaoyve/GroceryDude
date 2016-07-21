@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataHelper.h"
+#import "CoreDataImporter.h"
 
 @implementation CoreDataHelper
 
@@ -63,6 +64,11 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
     _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_context setPersistentStoreCoordinator:_coordinator];
+    _importContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [_importContext performBlockAndWait:^{
+        [_importContext setPersistentStoreCoordinator:_coordinator];
+        [_importContext setUndoManager:nil];  // the default on iOS
+    }];
     
     return self;
 }
@@ -98,7 +104,9 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     if (debug == 1) {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
+    [self setDefaultDataStoreAsInitialStore];
     [self loadStore];
+    [self checkIfDefaultDataNeedsImporting];
 }
 
 #pragma mark - SAVING
@@ -304,6 +312,198 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
         }
     }
 }
+
+#pragma mark - DATA IMPORT
+
+- (BOOL)isDefaultDataAlreadyImportedForStoreWithURL:(NSURL*)url ofType:(NSString*)type {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    NSError *error;
+    NSDictionary *dictionary = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type
+                                                                                          URL:url
+                                                                                        error:&error];
+    if (error) {
+        NSLog(@"Error reading persistent store metadata: %@", error.localizedDescription);
+    } else {
+        NSNumber *defaultDataAlreadyImported = [dictionary valueForKey:@"DefaultDataImported"];
+        if (![defaultDataAlreadyImported boolValue]) {
+            NSLog(@"Default Data has NOT already been imported");
+            return NO;
+        }
+    }
+    if (debug == 1) {
+        NSLog(@"Default DATA HAS already been imported");
+    }
+    return YES;
+}
+
+-(void)checkIfDefaultDataNeedsImporting {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    if (![self isDefaultDataAlreadyImportedForStoreWithURL:[self storeURL] ofType:NSSQLiteStoreType]) {
+        self.importAlertView = [[UIAlertView alloc] initWithTitle:@"Import Default Data?"
+                                                          message:@"If you've never use Grocery Dude before then some default data might help you understand how to use it. Tap 'Import' to import default data. Tap 'Cancel' to skip the import, especially if you've done this before on other devices."
+                                                         delegate:self
+                                                cancelButtonTitle:@"Cancel"
+                                                otherButtonTitles:@"Import", nil];
+        [self.importAlertView show];
+    }
+}
+
+- (void)importFromXML:(NSURL*)url {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    self.parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    self.parser.delegate = self;
+    
+    NSLog(@"**** START PARSE OF %@", url.path);
+    [self.parser parse];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
+    NSLog(@"**** END PARSE OF %@", url.path);
+}
+
+-(void)setDefaultDataAsImportedForStore:(NSPersistentStore*)aStore {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    // get metadata dictionary
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[[aStore metadata] copy]];
+    if (debug == 1) {
+        NSLog(@"__Store Metadata BEFORE changes__ \n %@", dictionary);
+    }
+    
+    // edit metadata dictionary
+    [dictionary setObject:@YES forKey:@"DefaultDataImported"];
+    
+    // set metadata dictionary
+    [self.coordinator setMetadata:dictionary forPersistentStore:aStore];
+    if (debug == 1) {
+        NSLog(@"__Store Metadata AFTER changes__ \n %@", dictionary);
+    }
+}
+
+- (void)setDefaultDataStoreAsInitialStore {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:self.storeURL.path]) {
+        
+        NSURL *defaultDataURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"DefaultData" ofType:@"sqlite"]];
+        
+        NSError *error = nil;
+        if (![fileManager copyItemAtURL:defaultDataURL toURL:self.storeURL error:&error]) {
+            NSLog(@"DefaultData.sqlite copy FAIL: %@", error.localizedDescription);
+        } else {
+            NSLog(@"A copy of DefaultData.sqlite was set as the initial store for %@", self.storeURL);
+        }
+    }
+}
+
+#pragma mark - DELEGATE: UIAlertView
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    if (alertView == self.importAlertView) {
+        if (buttonIndex == 1) {  // The 'Import' button on the importAlertView
+            NSLog(@"Default Data Import Approved by User");
+            [_importContext performBlock:^{
+                // XML Import
+                [self importFromXML:[[NSBundle mainBundle] URLForResource:@"DefaultData" withExtension:@"xml"]];
+            }];
+        } else {
+            NSLog(@"Default Data Import Cancelled by User");
+        }
+        // Set the data as imported regardless of the user's decision
+        [self setDefaultDataAsImportedForStore:_store];
+    }
+}
+
+#pragma mark - UNIQUE ATTRIBUTE SELECTION
+// This code is Crocery Dude data specific and is used when instantiating CoreDataImporter
+- (NSDictionary*)selectedUniqueAttributes {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    NSMutableArray *entities   = [NSMutableArray new];
+    NSMutableArray *attributes = [NSMutableArray new];
+    
+    // Select an attribute in each entity for uniqueness
+    [entities addObject:@"Item"];[attributes addObject:@"name"];
+    [entities addObject:@"Unit"];[attributes addObject:@"name"];
+    [entities addObject:@"LocationAtHome"];[attributes addObject:@"storeIn"];
+    [entities addObject:@"LocationAtShop"];[attributes addObject:@"aisle"];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:attributes forKeys:entities];
+    
+    return dictionary;
+}
+
+#pragma mark - DELEGATE: NSXMLParser
+// This code is Grocery Dude adta specific
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+}
+- (void)parser:(NSXMLParser*)parser didStartElement:(nonnull NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(nonnull NSDictionary<NSString *,NSString *> *)attributeDict {
+    [self.importContext performBlockAndWait:^{
+        // STEP 1: Process only the 'item' element in the XML file
+        if ([elementName isEqualToString:@"item"]) {
+            // STEP 2: Prepare the Core Data Importer
+            CoreDataImporter *importer = [[CoreDataImporter alloc] initWithUniqueAttributes:[self selectedUniqueAttributes]];
+            
+            // STEP 3a: Insert a unique 'Item' Object
+            NSManagedObject *item = [importer insertBasicObjectInTargetEntity:@"Item"
+                                                        uniqueEntityAttribute:@"name"
+                                                           sourceXMLAttribute:@"name"
+                                                                 attributeDic:attributeDict
+                                                                      Context:_importContext];
+            // STEP 3b: Insert a unique 'Unit' Object
+            NSManagedObject *unit = [importer insertBasicObjectInTargetEntity:@"Unit"
+                                                        uniqueEntityAttribute:@"name"
+                                                           sourceXMLAttribute:@"unit"
+                                                                 attributeDic:attributeDict
+                                                                      Context:_importContext];
+            
+            // STEP 3c: Insert a unique 'LocationAtHome' Object
+            NSManagedObject *locationAtHome = [importer insertBasicObjectInTargetEntity:@"LocationAtHome"
+                                                                  uniqueEntityAttribute:@"storeIn"
+                                                                     sourceXMLAttribute:@"locationathome"
+                                                                           attributeDic:attributeDict
+                                                                                Context:_importContext];
+            
+            // STEP 3d: Insert a unique 'LocationAtHome' Object
+            NSManagedObject *locationAtShop = [importer insertBasicObjectInTargetEntity:@"LocationAtShop"
+                                                                  uniqueEntityAttribute:@"aisle"
+                                                                     sourceXMLAttribute:@"locationatshop"
+                                                                           attributeDic:attributeDict
+                                                                                Context:_importContext];
+            
+            // STEP 4: Manually add extra attribute values
+            [item setValue:@NO forKey:@"listed"];
+            
+            // STEP 5: Create relationships
+            [item setValue:unit forKey:@"unit"];
+            [item setValue:locationAtHome forKey:@"locationAtHome"];
+            [item setValue:locationAtShop forKey:@"locationAtShop"];
+            
+            // STEP 6: Save new objects to the persistent store
+            [CoreDataImporter saveContext:_importContext];
+            
+            // STEP 7: Turn objects into faults to save memory
+            [_importContext refreshObject:item mergeChanges:NO];
+            [_importContext refreshObject:unit mergeChanges:NO];
+            [_importContext refreshObject:locationAtHome mergeChanges:NO];
+            [_importContext refreshObject:locationAtShop mergeChanges:NO];
+        }
+    }];
+}
+
 @end
 
 
