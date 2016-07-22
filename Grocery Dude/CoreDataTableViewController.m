@@ -130,30 +130,31 @@
     if (debug == 1) {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
+    UITableView *tableView = self.tableView;
     switch (type) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case NSFetchedResultsChangeUpdate:
             if (!newIndexPath) {
-                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                      withRowAnimation:UITableViewRowAnimationNone];
             } else {
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                      withRowAnimation:UITableViewRowAnimationNone];
+                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                      withRowAnimation:UITableViewRowAnimationNone];
             }
             break;
         case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
     }

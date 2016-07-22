@@ -27,4 +27,8 @@
                                  sourceXMLAttribute:(NSString *)sourceXMLAttribute
                                     attributeDic:(NSDictionary *)attributeDic
                                             Context:(NSManagedObjectContext *)context;
+
+- (void)deepCopyEntities:(NSArray*)entities
+             fromContext:(NSManagedObjectContext*)sourceContext
+               toContext:(NSManagedObjectContext*)targetContext;
 @end

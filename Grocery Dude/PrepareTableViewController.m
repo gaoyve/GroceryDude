@@ -54,7 +54,7 @@
     self.clearConfirmActionSheet.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(performFetch)
-                                                 name:@"SomethingChanges"
+                                                 name:@"SomethingChanged"
                                                object:nil];
 }
 
@@ -93,7 +93,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Item *deleteTarget = [self.frc objectAtIndexPath:indexPath];
         [self.frc.managedObjectContext deleteObject:deleteTarget];
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,7 +122,7 @@
     NSArray *shoppingList = [cdh.context executeFetchRequest:request error:nil];
     
     if (shoppingList.count > 0) {
-        self.clearConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear Rntire Shopping List?"
+        self.clearConfirmActionSheet = [[UIActionSheet alloc] initWithTitle:@"Clear Entire Shopping List?"
                                                                    delegate:self
                                                           cancelButtonTitle:@"Cancel"
                                                      destructiveButtonTitle:@"Clear"

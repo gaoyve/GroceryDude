@@ -15,6 +15,7 @@
 
 #pragma mark - FILES
 NSString *storeFilename = @"Grocery-Dude.sqlite";
+NSString *sourceStoreFilename = @"DefaultData.sqlite";
 
 #pragma mark - PATHS
 - (NSString *)applicationDocumentsDirectory {
@@ -45,11 +46,21 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     }
     return storesDirectory;
 }
+
 - (NSURL *)storeURL {
     if (debug == 1) {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
     return [[self applicationStoresDirectory] URLByAppendingPathComponent:storeFilename];
+}
+
+- (NSURL *)sourceStoreURL {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    return [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                  pathForResource:[sourceStoreFilename stringByDeletingPathExtension]
+                           ofType:[sourceStoreFilename pathExtension]]];
 }
 
 #pragma mark - SETUP
@@ -61,13 +72,22 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     if (!self) return nil;
     
     _model = [NSManagedObjectModel mergedModelFromBundles:nil];
+    
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
     _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_context setPersistentStoreCoordinator:_coordinator];
+    
     _importContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [_importContext performBlockAndWait:^{
         [_importContext setPersistentStoreCoordinator:_coordinator];
         [_importContext setUndoManager:nil];  // the default on iOS
+    }];
+    
+    _sourceCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
+    _sourceContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [_sourceContext performBlockAndWait:^{
+        [_sourceContext setPersistentStoreCoordinator:_sourceCoordinator];
+        [_sourceContext setUndoManager:nil];  // the default on ios;
     }];
     
     return self;
@@ -93,21 +113,47 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
                                                   options:options
                                                     error:&error];
         if (!_store) {
-            NSLog(@"Failed to add store. Error: %@", error); abort();
+            NSLog(@"Failed to add store. Error: %@", error);
+            abort();
         }
         else {
             NSLog(@"Successfully added store: %@", _store);
         }
     }
 }
+
+- (void)loadSourceStore {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    if (_sourceStore)
+        return;
+    
+    NSDictionary *options = @{NSReadOnlyPersistentStoreOption:@YES};
+    NSError *error = nil;
+    _sourceStore = [_sourceCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                    configuration:nil
+                                                              URL:[self sourceStoreURL]
+                                                          options:options
+                                                            error:&error];
+    if (!_sourceStore) {
+        NSLog(@"Failed to add source store. Error: %@",error);
+        abort();
+    } else {
+        NSLog(@"Successfully added source store: %@", _sourceStore);
+    }
+}
+
 - (void)setupCoreData {
     if (debug == 1) {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
-    [self setDefaultDataStoreAsInitialStore];
+//    [self setDefaultDataStoreAsInitialStore];
     [self loadStore];
     [self checkIfDefaultDataNeedsImporting];
 }
+
+
 
 #pragma mark - SAVING
 - (void)saveContext {
@@ -403,6 +449,33 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
     }
 }
 
+- (void)deepCopyFromPersistentStore:(NSURL*)url {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    // Perodically refresh the interface during the import
+    _importTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                    target:self
+                                                  selector:@selector(somethingChanged)
+                                                  userInfo:nil
+                                                   repeats:YES];
+    
+    [_sourceContext performBlock:^{
+        NSLog(@"*** STARTED DEEP COPY FROM DATA PERSISTENT STORE ***");
+        NSArray *entitiesToCopy = [NSArray arrayWithObjects:@"LocationAtHome", @"LocationAtShop", @"Unit", @"Item", nil];
+        CoreDataImporter *importer = [[CoreDataImporter alloc]
+                                      initWithUniqueAttributes:[self selectedUniqueAttributes]];
+        [importer deepCopyEntities:entitiesToCopy fromContext:_sourceContext toContext:_importContext];
+        [_context performBlock:^{
+            // Stop periodically refreshing the interface
+            [_importTimer invalidate];
+            
+            // Tell the interface to refresh once import completess
+            [self somethingChanged];
+        }];
+        NSLog(@"*** FINISHED DEEP COPY FROM DEFAULT DATA PERSISTENT STORE ***");
+    }];
+}
 #pragma mark - DELEGATE: UIAlertView
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (debug == 1) {
@@ -412,8 +485,15 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
         if (buttonIndex == 1) {  // The 'Import' button on the importAlertView
             NSLog(@"Default Data Import Approved by User");
             [_importContext performBlock:^{
-                // XML Import
-                [self importFromXML:[[NSBundle mainBundle] URLForResource:@"DefaultData" withExtension:@"xml"]];
+                
+//                // XML Import
+//                [self importFromXML:[[NSBundle mainBundle]
+//                                     URLForResource:@"DefaultData" withExtension:@"xml"]];
+                
+                // Deep Copy Import From Persistent Store
+                [self loadSourceStore];
+                [self deepCopyFromPersistentStore:[self sourceStoreURL]];
+                
             }];
         } else {
             NSLog(@"Default Data Import Cancelled by User");
@@ -502,6 +582,15 @@ NSString *storeFilename = @"Grocery-Dude.sqlite";
             [_importContext refreshObject:locationAtShop mergeChanges:NO];
         }
     }];
+}
+
+#pragma mark - UNDERLYING DATA CHANGE NOTIFICATION
+- (void)somethingChanged {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    // Send a notification that tells observing interfaces to refresh their data
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
 }
 
 @end
