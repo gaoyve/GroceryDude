@@ -141,15 +141,13 @@
         self.quantityTextField.text = item.quantity.stringValue;
         self.unitPickerTextField.text = item.unit.name;
         self.unitPickerTextField.selectedObjectID = item.unit.objectID;
-        self.homeLocationPickerTextField.text =
-        item.locationAtHome.storeIn;
-        self.homeLocationPickerTextField.selectedObjectID =
-        item.locationAtHome.objectID;
-        self.shopLocationPickerTextField.text =
-        item.locationAtShop.aisle;
-        self.shopLocationPickerTextField.selectedObjectID =
-        item.locationAtShop.objectID;
-        self.photoImageView.image = [UIImage imageWithData:item.photo.data];
+        self.homeLocationPickerTextField.text = item.locationAtHome.storeIn;
+        self.homeLocationPickerTextField.selectedObjectID = item.locationAtHome.objectID;
+        self.shopLocationPickerTextField.text = item.locationAtShop.aisle;
+        self.shopLocationPickerTextField.selectedObjectID = item.locationAtShop.objectID;
+        [cdh.context performBlock:^{
+            self.photoImageView.image = [UIImage imageWithData:item.photo.data];
+        }];
     }
 }
 - (void)viewDidLoad {
@@ -201,7 +199,7 @@
     
     CoreDataHelper *cdh =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
-    [cdh saveContext];
+    [cdh backgroundSaveContext];
     
     // Unregister for keyboard notifications while the view is not visible.
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -411,6 +409,7 @@
         [cdh.context obtainPermanentIDsForObjects:[NSArray arrayWithObject:newPhoto] error:nil];
         item.photo = newPhoto;
     }
+    item.thumbnail = nil;
     item.photo.data = UIImageJPEGRepresentation(photo, 0.5);
     
     [picker dismissViewControllerAnimated:YES completion:nil];

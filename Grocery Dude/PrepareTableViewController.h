@@ -8,7 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 
-@interface PrepareTableViewController : CoreDataTableViewController
+@interface PrepareTableViewController : CoreDataTableViewController <UIActionSheetDelegate>
 @property (strong, nonatomic) UIActionSheet *clearConfirmActionSheet;
 
 @end

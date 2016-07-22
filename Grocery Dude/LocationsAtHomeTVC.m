@@ -68,6 +68,10 @@
         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];
     }
+    
+    CoreDataHelper *cdh =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
+    [cdh backgroundSaveContext];
 }
 
 #pragma mark - INTERACTION

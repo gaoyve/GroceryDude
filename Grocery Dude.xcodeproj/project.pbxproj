@@ -27,6 +27,8 @@
 		CB1791871D423ECC006D405B /* Item_Photo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1791831D423ECC006D405B /* Item_Photo+CoreDataProperties.m */; };
 		CB1791881D423ECC006D405B /* Item_Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1791851D423ECC006D405B /* Item_Photo.m */; };
 		CB17918A1D42428E006D405B /* DefaultData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CB1791891D42428E006D405B /* DefaultData.sqlite */; };
+		CB595D591D429D5800DF2D68 /* Faulter.m in Sources */ = {isa = PBXBuildFile; fileRef = CB595D581D429D5800DF2D68 /* Faulter.m */; };
+		CB595D5C1D42AF6200DF2D68 /* Thumbnailer.m in Sources */ = {isa = PBXBuildFile; fileRef = CB595D5B1D42AF6200DF2D68 /* Thumbnailer.m */; };
 		CB5C67A61D3BE0D9002C4754 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5C67A51D3BE0D9002C4754 /* CoreData.framework */; };
 		CB5C67AA1D3C74BF002C4754 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */; };
 		CB5C67AE1D3C9583002C4754 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67AC1D3C9583002C4754 /* Model.xcdatamodeld */; };
@@ -104,6 +106,10 @@
 		CB1791841D423ECC006D405B /* Item_Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item_Photo.h; path = "Grocery Dude/Item_Photo.h"; sourceTree = "<group>"; };
 		CB1791851D423ECC006D405B /* Item_Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item_Photo.m; path = "Grocery Dude/Item_Photo.m"; sourceTree = "<group>"; };
 		CB1791891D42428E006D405B /* DefaultData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefaultData.sqlite; sourceTree = "<group>"; };
+		CB595D571D429D5800DF2D68 /* Faulter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faulter.h; sourceTree = "<group>"; };
+		CB595D581D429D5800DF2D68 /* Faulter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faulter.m; sourceTree = "<group>"; };
+		CB595D5A1D42AF6200DF2D68 /* Thumbnailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thumbnailer.h; sourceTree = "<group>"; };
+		CB595D5B1D42AF6200DF2D68 /* Thumbnailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thumbnailer.m; sourceTree = "<group>"; };
 		CB5C67A51D3BE0D9002C4754 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB5C67A81D3C74BF002C4754 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
@@ -293,6 +299,10 @@
 				CBA519881D3F61B900774562 /* CoreDataPickerTF.m */,
 				CB641DD11D40A7CD00F31C00 /* CoreDataImporter.h */,
 				CB641DD21D40A7CD00F31C00 /* CoreDataImporter.m */,
+				CB595D571D429D5800DF2D68 /* Faulter.h */,
+				CB595D581D429D5800DF2D68 /* Faulter.m */,
+				CB595D5A1D42AF6200DF2D68 /* Thumbnailer.h */,
+				CB595D5B1D42AF6200DF2D68 /* Thumbnailer.m */,
 			);
 			name = "Generic Core Data Classes";
 			sourceTree = "<group>";
@@ -498,6 +508,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB5C67CF1D3CDC3D002C4754 /* Unit.m in Sources */,
+				CB595D5C1D42AF6200DF2D68 /* Thumbnailer.m in Sources */,
+				CB595D591D429D5800DF2D68 /* Faulter.m in Sources */,
 				CB8B49581D3F1A72005C51A5 /* ItemViewController.m in Sources */,
 				CBA519921D3F896B00774562 /* LocationAtHomePickerTF.m in Sources */,
 				CB5C67C21D3CBDB3002C4754 /* Amount.m in Sources */,

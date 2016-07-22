@@ -8,6 +8,7 @@
 
 #import "CoreDataHelper.h"
 #import "CoreDataImporter.h"
+#import "Faulter.h"
 
 @implementation CoreDataHelper
 
@@ -72,24 +73,32 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     if (!self) return nil;
     
     _model = [NSManagedObjectModel mergedModelFromBundles:nil];
-    
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
+    
+    _parentContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [_parentContext performBlockAndWait:^{
+        [_parentContext setPersistentStoreCoordinator:_coordinator];
+        [_parentContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    }];
+    
     _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    [_context setPersistentStoreCoordinator:_coordinator];
+    [_context setParentContext:_parentContext];
     [_context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
     
     _importContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [_importContext performBlockAndWait:^{
-        [_importContext setPersistentStoreCoordinator:_coordinator];
+//        [_importContext setPersistentStoreCoordinator:_coordinator];
+        [_importContext setParentContext:_context];
         [_importContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         [_importContext setUndoManager:nil];  // the default on iOS
     }];
     
-    _sourceCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
+//    _sourceCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
     _sourceContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [_sourceContext performBlockAndWait:^{
         [_sourceContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-        [_sourceContext setPersistentStoreCoordinator:_sourceCoordinator];
+//        [_sourceContext setPersistentStoreCoordinator:_sourceCoordinator];
+        [_sourceContext setParentContext:_context];
         [_sourceContext setUndoManager:nil];  // the default on ios;
     }];
     
@@ -175,6 +184,29 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     } else {
         NSLog(@"SKIPPED _context save, there are no changes!");
     }
+}
+
+- (void)backgroundSaveContext {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    // First, save the child context in the background
+    [self saveContext];
+    
+    // Then, save the parent context
+    [_parentContext performBlock:^{
+        if ([_parentContext hasChanges]) {
+            NSError *error = nil;
+            if ([_parentContext save:&error]) {
+                NSLog(@"_parentContext SAVED changes to persistent store");
+            } else {
+                NSLog(@"_parentContext FAILED to save: %@", error);
+                [self showValidationError:error];
+            }
+        } else {
+            NSLog(@"_parentContext SKIPPED saving as there are no changes");
+        }
+    }];
 }
 
 #pragma mark - MIGRATION MANAGER
@@ -611,41 +643,59 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     if (!imported.boolValue) {
         NSLog(@"Importing test data...");
         [_importContext performBlock:^{
-            NSManagedObject *locationAtHome = [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtHome" inManagedObjectContext:_importContext];
-            NSManagedObject *locationAtShop = [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtShop" inManagedObjectContext:_importContext];
+            
+            NSManagedObject *locationAtHome =
+            [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtHome"
+                                          inManagedObjectContext:_importContext];
+            NSManagedObject *locationAtShop =
+            [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtShop"
+                                          inManagedObjectContext:_importContext];
             [locationAtHome setValue:@"Test Home Location" forKey:@"storeIn"];
             [locationAtShop setValue:@"Test Shop Location" forKey:@"aisle"];
             
             for (int a = 1; a < 101; a++) {
+                
                 @autoreleasepool {
                     
                     // Insert Item
-                    NSManagedObject *item = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:_importContext];
-                    [item setValue:[NSString stringWithFormat:@"Test Item %i", a] forKey:@"name"];
-                    [item setValue:locationAtHome forKey:@"locationAtHome"];
-                    [item setValue:locationAtShop forKey:@"locationAtShop"];
+                    NSManagedObject *item =
+                    [NSEntityDescription insertNewObjectForEntityForName:@"Item"
+                                                  inManagedObjectContext:_importContext];
+                    [item setValue:[NSString stringWithFormat:@"Test Item %i",a]
+                            forKey:@"name"];
+                    [item setValue:locationAtHome
+                            forKey:@"locationAtHome"];
+                    [item setValue:locationAtShop
+                            forKey:@"locationAtShop"];
                     
                     // Insert Photo
-                    NSManagedObject *photo = [NSEntityDescription insertNewObjectForEntityForName:@"Item_Photo" inManagedObjectContext:_importContext];
-                    [photo setValue:UIImagePNGRepresentation([UIImage imageNamed:@"GroceryHead.png"]) forKey:@"data"];
+                    NSManagedObject *photo =
+                    [NSEntityDescription insertNewObjectForEntityForName:@"Item_Photo"
+                                                  inManagedObjectContext:_importContext];
+                    [photo setValue:UIImagePNGRepresentation(
+                                                             [UIImage imageNamed:@"GroceryHead.png"])
+                             forKey:@"data"];
                     
-                    // Relate Item and photo
+                    // Relate Item and Photo
                     [item setValue:photo forKey:@"photo"];
                     
                     NSLog(@"Inserting %@", [item valueForKey:@"name"]);
-                    [CoreDataImporter saveContext:_importContext];
-                    [_importContext refreshObject:item mergeChanges:NO];
-                    [_importContext refreshObject:photo mergeChanges:NO];
+                    [Faulter faultObjectWithID:photo.objectID
+                                     inContext:_importContext];
+                    [Faulter faultObjectWithID:item.objectID
+                                     inContext:_importContext];
                 }
             }
-            // force table view refresh
-            [self somethingChanged];
+            [_importContext reset];
             
             // ensure import was a one off
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"TestDataImport"];
+            [[NSUserDefaults standardUserDefaults]
+             setObject:[NSNumber numberWithBool:YES]
+             forKey:@"TestDataImport"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }];
-    } else {
+    }
+    else {
         NSLog(@"Skipped test data import");
     }
 }
