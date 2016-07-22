@@ -76,16 +76,19 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
     _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_context setPersistentStoreCoordinator:_coordinator];
+    [_context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
     
     _importContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [_importContext performBlockAndWait:^{
         [_importContext setPersistentStoreCoordinator:_coordinator];
+        [_importContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         [_importContext setUndoManager:nil];  // the default on iOS
     }];
     
     _sourceCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
     _sourceContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [_sourceContext performBlockAndWait:^{
+        [_sourceContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         [_sourceContext setPersistentStoreCoordinator:_sourceCoordinator];
         [_sourceContext setUndoManager:nil];  // the default on ios;
     }];
@@ -150,7 +153,8 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     }
 //    [self setDefaultDataStoreAsInitialStore];
     [self loadStore];
-    [self checkIfDefaultDataNeedsImporting];
+    [self importGroceryDudeTestData];
+//    [self checkIfDefaultDataNeedsImporting];
 }
 
 
@@ -517,6 +521,7 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     [entities addObject:@"Unit"];[attributes addObject:@"name"];
     [entities addObject:@"LocationAtHome"];[attributes addObject:@"storeIn"];
     [entities addObject:@"LocationAtShop"];[attributes addObject:@"aisle"];
+    [entities addObject:@"Item_Photo"];[attributes addObject:@"data"];
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:attributes forKeys:entities];
     
@@ -593,6 +598,57 @@ NSString *sourceStoreFilename = @"DefaultData.sqlite";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
 }
 
+
+#pragma mark - TEST DATA IMPORT
+// This code is Grocery Dude data specific
+- (void)importGroceryDudeTestData {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    
+    NSNumber *imported = [[NSUserDefaults standardUserDefaults] objectForKey:@"TestDataImport"];
+    
+    if (!imported.boolValue) {
+        NSLog(@"Importing test data...");
+        [_importContext performBlock:^{
+            NSManagedObject *locationAtHome = [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtHome" inManagedObjectContext:_importContext];
+            NSManagedObject *locationAtShop = [NSEntityDescription insertNewObjectForEntityForName:@"LocationAtShop" inManagedObjectContext:_importContext];
+            [locationAtHome setValue:@"Test Home Location" forKey:@"storeIn"];
+            [locationAtShop setValue:@"Test Shop Location" forKey:@"aisle"];
+            
+            for (int a = 1; a < 101; a++) {
+                @autoreleasepool {
+                    
+                    // Insert Item
+                    NSManagedObject *item = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:_importContext];
+                    [item setValue:[NSString stringWithFormat:@"Test Item %i", a] forKey:@"name"];
+                    [item setValue:locationAtHome forKey:@"locationAtHome"];
+                    [item setValue:locationAtShop forKey:@"locationAtShop"];
+                    
+                    // Insert Photo
+                    NSManagedObject *photo = [NSEntityDescription insertNewObjectForEntityForName:@"Item_Photo" inManagedObjectContext:_importContext];
+                    [photo setValue:UIImagePNGRepresentation([UIImage imageNamed:@"GroceryHead.png"]) forKey:@"data"];
+                    
+                    // Relate Item and photo
+                    [item setValue:photo forKey:@"photo"];
+                    
+                    NSLog(@"Inserting %@", [item valueForKey:@"name"]);
+                    [CoreDataImporter saveContext:_importContext];
+                    [_importContext refreshObject:item mergeChanges:NO];
+                    [_importContext refreshObject:photo mergeChanges:NO];
+                }
+            }
+            // force table view refresh
+            [self somethingChanged];
+            
+            // ensure import was a one off
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"TestDataImport"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }];
+    } else {
+        NSLog(@"Skipped test data import");
+    }
+}
 @end
 
 

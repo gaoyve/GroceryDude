@@ -13,14 +13,17 @@
 #import "LocationAtShopPickerTF.h"
 
 @interface ItemViewController : UIViewController
-<UITextFieldDelegate, CoreDataPickerTFDelegate>
-@property (strong, nonatomic) NSManagedObjectID *selectedItemID;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *quantityTextField;
-@property (strong, nonatomic) IBOutlet UnitPickerTF *unitPickerTextField;
+<UITextFieldDelegate, CoreDataPickerTFDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@property (strong, nonatomic) NSManagedObjectID               *selectedItemID;
+@property (strong, nonatomic) IBOutlet UIScrollView           *scrollView;
+@property (strong, nonatomic) IBOutlet UITextField            *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextField            *quantityTextField;
+@property (strong, nonatomic) IBOutlet UnitPickerTF           *unitPickerTextField;
 @property (strong, nonatomic) IBOutlet LocationAtHomePickerTF *homeLocationPickerTextField;
 @property (strong, nonatomic) IBOutlet LocationAtShopPickerTF *shopLocationPickerTextField;
-@property (strong, nonatomic) IBOutlet UITextField *activeField;
+@property (strong, nonatomic) IBOutlet UITextField            *activeField;
+@property (strong, nonatomic) IBOutlet UIImageView            *photoImageView;
+@property (strong, nonatomic) IBOutlet UIButton               *cameraButton;
+@property (strong, nonatomic) UIImagePickerController         *camera;
 
 @end

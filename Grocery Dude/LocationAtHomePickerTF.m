@@ -23,7 +23,7 @@
     NSSortDescriptor *sort =
     [NSSortDescriptor sortDescriptorWithKey:@"storeIn" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObject:sort]];
-    [request setFetchBatchSize:50];
+    [request setFetchBatchSize:15];
     NSError *error;
     self.pickerData = [cdh.context executeFetchRequest:request
                                                  error:&error];

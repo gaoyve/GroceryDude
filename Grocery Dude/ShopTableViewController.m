@@ -32,7 +32,7 @@
                                [NSSortDescriptor sortDescriptorWithKey:@"locationAtShop.aisle" ascending:YES],
                                [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES],
                                nil];
-    [request setFetchBatchSize:50];
+    [request setFetchBatchSize:15];
     
     self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                    managedObjectContext:cdh.context
@@ -83,6 +83,7 @@
         cell.textLabel.textColor = [UIColor orangeColor];
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
+    cell.imageView.image = [UIImage imageWithData:item.thumbnail];
     return cell;
 }
 

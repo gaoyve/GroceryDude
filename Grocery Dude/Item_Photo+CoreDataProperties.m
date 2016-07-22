@@ -1,5 +1,5 @@
 //
-//  Location+CoreDataProperties.m
+//  Item_Photo+CoreDataProperties.m
 //  Grocery Dude
 //
 //  Created by Gerry on 7/22/16.
@@ -9,10 +9,11 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Location+CoreDataProperties.h"
+#import "Item_Photo+CoreDataProperties.h"
 
-@implementation Location (CoreDataProperties)
+@implementation Item_Photo (CoreDataProperties)
 
-@dynamic summary;
+@dynamic data;
+@dynamic item;
 
 @end

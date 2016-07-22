@@ -24,7 +24,7 @@
     [NSFetchRequest fetchRequestWithEntityName:@"Unit"];
     request.sortDescriptors = [NSArray arrayWithObjects:
                                [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES],nil];
-    [request setFetchBatchSize:50];
+    [request setFetchBatchSize:15];
     NSError *error = nil;
     self.pickerData = [cdh.context executeFetchRequest:request error:&error];
     

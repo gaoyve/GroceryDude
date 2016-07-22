@@ -22,7 +22,11 @@
 		42DA9FB017E8F9EC000E7187 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42DA9FAE17E8F9EC000E7187 /* InfoPlist.strings */; };
 		42DA9FB217E8F9EC000E7187 /* Grocery_DudeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DA9FB117E8F9EC000E7187 /* Grocery_DudeTests.m */; };
 		CB15DD031D40963600E39C46 /* DefaultData.xml in Resources */ = {isa = PBXBuildFile; fileRef = CB15DD021D40963600E39C46 /* DefaultData.xml */; };
-		CB5932C31D40F3AC006C747D /* DefaultData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CB5932C21D40F3AC006C747D /* DefaultData.sqlite */; };
+		CB1791801D423D50006D405B /* Model7toModel8.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = CB17917F1D423D50006D405B /* Model7toModel8.xcmappingmodel */; };
+		CB1791861D423ECC006D405B /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1791811D423ECC006D405B /* Location+CoreDataProperties.m */; };
+		CB1791871D423ECC006D405B /* Item_Photo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1791831D423ECC006D405B /* Item_Photo+CoreDataProperties.m */; };
+		CB1791881D423ECC006D405B /* Item_Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1791851D423ECC006D405B /* Item_Photo.m */; };
+		CB17918A1D42428E006D405B /* DefaultData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CB1791891D42428E006D405B /* DefaultData.sqlite */; };
 		CB5C67A61D3BE0D9002C4754 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5C67A51D3BE0D9002C4754 /* CoreData.framework */; };
 		CB5C67AA1D3C74BF002C4754 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */; };
 		CB5C67AE1D3C9583002C4754 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB5C67AC1D3C9583002C4754 /* Model.xcdatamodeld */; };
@@ -91,7 +95,15 @@
 		42DA9FAF17E8F9EC000E7187 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42DA9FB117E8F9EC000E7187 /* Grocery_DudeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Grocery_DudeTests.m; sourceTree = "<group>"; };
 		CB15DD021D40963600E39C46 /* DefaultData.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DefaultData.xml; sourceTree = "<group>"; };
-		CB5932C21D40F3AC006C747D /* DefaultData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefaultData.sqlite; sourceTree = "<group>"; };
+		CB1791771D4238E1006D405B /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
+		CB17917E1D423BFF006D405B /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
+		CB17917F1D423D50006D405B /* Model7toModel8.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model7toModel8.xcmappingmodel; sourceTree = "<group>"; };
+		CB1791811D423ECC006D405B /* Location+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Location+CoreDataProperties.m"; path = "Grocery Dude/Location+CoreDataProperties.m"; sourceTree = "<group>"; };
+		CB1791821D423ECC006D405B /* Item_Photo+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Item_Photo+CoreDataProperties.h"; path = "Grocery Dude/Item_Photo+CoreDataProperties.h"; sourceTree = "<group>"; };
+		CB1791831D423ECC006D405B /* Item_Photo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Item_Photo+CoreDataProperties.m"; path = "Grocery Dude/Item_Photo+CoreDataProperties.m"; sourceTree = "<group>"; };
+		CB1791841D423ECC006D405B /* Item_Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item_Photo.h; path = "Grocery Dude/Item_Photo.h"; sourceTree = "<group>"; };
+		CB1791851D423ECC006D405B /* Item_Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item_Photo.m; path = "Grocery Dude/Item_Photo.m"; sourceTree = "<group>"; };
+		CB1791891D42428E006D405B /* DefaultData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefaultData.sqlite; sourceTree = "<group>"; };
 		CB5C67A51D3BE0D9002C4754 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB5C67A81D3C74BF002C4754 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		CB5C67A91D3C74BF002C4754 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
@@ -288,11 +300,12 @@
 		CB5C67AB1D3C9561002C4754 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB5932C21D40F3AC006C747D /* DefaultData.sqlite */,
+				CB1791891D42428E006D405B /* DefaultData.sqlite */,
 				CB15DD021D40963600E39C46 /* DefaultData.xml */,
 				CB5C67AC1D3C9583002C4754 /* Model.xcdatamodeld */,
 				CB5C67C31D3CBE50002C4754 /* Model2toModel3.xcmappingmodel */,
 				CB5C67D01D3CDC89002C4754 /* Model3toModel4.xcmappingmodel */,
+				CB17917F1D423D50006D405B /* Model7toModel8.xcmappingmodel */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -317,6 +330,11 @@
 		CB6513A11D3DDA800023BE92 /* NSManagedObject Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				CB1791811D423ECC006D405B /* Location+CoreDataProperties.m */,
+				CB1791821D423ECC006D405B /* Item_Photo+CoreDataProperties.h */,
+				CB1791831D423ECC006D405B /* Item_Photo+CoreDataProperties.m */,
+				CB1791841D423ECC006D405B /* Item_Photo.h */,
+				CB1791851D423ECC006D405B /* Item_Photo.m */,
 				CB6513BB1D3E0DCE0023BE92 /* Location+CoreDataProperties.h */,
 				CB6513BC1D3E0DCE0023BE92 /* Item+CoreDataProperties.m */,
 				CB6513BD1D3E0DCE0023BE92 /* Location.h */,
@@ -456,7 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB5932C31D40F3AC006C747D /* DefaultData.sqlite in Resources */,
+				CB17918A1D42428E006D405B /* DefaultData.sqlite in Resources */,
 				42DA9F9F17E8F9EB000E7187 /* Images.xcassets in Resources */,
 				CB15DD031D40963600E39C46 /* DefaultData.xml in Resources */,
 				42DA9F9117E8F9EB000E7187 /* InfoPlist.strings in Resources */,
@@ -491,6 +509,7 @@
 				CBA5197A1D3F461300774562 /* UnitViewController.m in Sources */,
 				CB5C67CE1D3CDC3D002C4754 /* Unit+CoreDataProperties.m in Sources */,
 				CBC423F81D3E2BDA004B10B7 /* PrepareTableViewController.m in Sources */,
+				CB1791861D423ECC006D405B /* Location+CoreDataProperties.m in Sources */,
 				CB5C67BA1D3CB678002C4754 /* Amount+CoreDataProperties.m in Sources */,
 				CB641DD31D40A7CD00F31C00 /* CoreDataImporter.m in Sources */,
 				CBC423FB1D3E545E004B10B7 /* ShopTableViewController.m in Sources */,
@@ -501,12 +520,14 @@
 				42DA9F9D17E8F9EB000E7187 /* ViewController.m in Sources */,
 				42DA9F9717E8F9EB000E7187 /* AppDelegate.m in Sources */,
 				CB5C67C41D3CBE50002C4754 /* Model2toModel3.xcmappingmodel in Sources */,
+				CB1791881D423ECC006D405B /* Item_Photo.m in Sources */,
 				CB6513CB1D3E0DCE0023BE92 /* LocationAtShop+CoreDataProperties.m in Sources */,
 				CB6513CA1D3E0DCE0023BE92 /* LocationAtHome.m in Sources */,
 				CB5C67AE1D3C9583002C4754 /* Model.xcdatamodeld in Sources */,
 				CB5C67BB1D3CB678002C4754 /* Measurement.m in Sources */,
 				CBA519861D3F4C4A00774562 /* LocationsAtShopTVC.m in Sources */,
 				CB6513C71D3E0DCE0023BE92 /* Item+CoreDataProperties.m in Sources */,
+				CB1791871D423ECC006D405B /* Item_Photo+CoreDataProperties.m in Sources */,
 				CB6513CC1D3E0DCE0023BE92 /* LocationAtShop.m in Sources */,
 				CB5C67AA1D3C74BF002C4754 /* CoreDataHelper.m in Sources */,
 				CB5C67B41D3C9C5C002C4754 /* Item.m in Sources */,
@@ -514,6 +535,7 @@
 				CBA519931D3F896B00774562 /* LocationAtShopPickerTF.m in Sources */,
 				CBA519891D3F61B900774562 /* CoreDataPickerTF.m in Sources */,
 				42DA9F9317E8F9EB000E7187 /* main.m in Sources */,
+				CB1791801D423D50006D405B /* Model7toModel8.xcmappingmodel in Sources */,
 				CB5C67C11D3CBDB3002C4754 /* Amount+CoreDataProperties.m in Sources */,
 				CB5C67D11D3CDC89002C4754 /* Model3toModel4.xcmappingmodel in Sources */,
 			);
@@ -741,6 +763,8 @@
 		CB5C67AC1D3C9583002C4754 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CB17917E1D423BFF006D405B /* Model 8.xcdatamodel */,
+				CB1791771D4238E1006D405B /* Model 7.xcdatamodel */,
 				CB6513A21D3E0BE50023BE92 /* Model 6.xcdatamodel */,
 				CB6513A01D3DD7F30023BE92 /* Model 5.xcdatamodel */,
 				CB5C67C91D3CDBDE002C4754 /* Model 4.xcdatamodel */,
@@ -748,7 +772,7 @@
 				CB5C67B51D3CB449002C4754 /* Model 2.xcdatamodel */,
 				CB5C67AD1D3C9583002C4754 /* Model.xcdatamodel */,
 			);
-			currentVersion = CB6513A21D3E0BE50023BE92 /* Model 6.xcdatamodel */;
+			currentVersion = CB17917E1D423BFF006D405B /* Model 8.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
