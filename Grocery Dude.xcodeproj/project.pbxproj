@@ -243,8 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				CB6513A11D3DDA800023BE92 /* NSManagedObject Subclasses */,
-				CB5C67A71D3C7480002C4754 /* Generic Core Data Classes */,
 				CB5C67AB1D3C9561002C4754 /* Data Model */,
+				CB5C67A71D3C7480002C4754 /* Generic Core Data Classes */,
 				CBC423F21D3E2AB4004B10B7 /* Grocery Dude Table View Controllers */,
 				CB5C67C51D3CC231002C4754 /* Grocery Dude View Controllers */,
 				CBA5198A1D3F75CE00774562 /* Grocery Dude Picker Text Fields */,

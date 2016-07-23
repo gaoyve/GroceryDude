@@ -57,6 +57,7 @@
                                              selector:@selector(performFetch)
                                                  name:@"SomethingChanged"
                                                object:nil];
+    [self configureSearch];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,10 +88,16 @@
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
     static NSString *cellIdentifier = @"Item Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
-                                                            forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:cellIdentifier];
+    }
+    
     cell.accessoryType = UITableViewCellAccessoryDetailButton;
-    Item *item = [self.frc objectAtIndexPath:indexPath];
+    Item *item = [[self frcFromTV:tableView] objectAtIndexPath:indexPath];
+    
     NSMutableString *title = [NSMutableString stringWithFormat:@"%@%@ %@",
                               item.quantity, item.unit.name, item.name];
     [title replaceOccurrencesOfString:@"(null)"
@@ -116,20 +123,22 @@
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSFetchedResultsController *frc = [self frcFromTV:tableView];
         Item *deleteTarget = [self.frc objectAtIndexPath:indexPath];
-        [self.frc.managedObjectContext deleteObject:deleteTarget];
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [frc.managedObjectContext deleteObject:deleteTarget];
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
     }
-    CoreDataHelper *cdh =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
+    CoreDataHelper *cdh = [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
     [cdh backgroundSaveContext];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (debug == 1) {
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
-    NSManagedObjectID *itemid = [[self.frc objectAtIndexPath:indexPath] objectID];
-    Item *item = (Item*)[self.frc.managedObjectContext existingObjectWithID:itemid error:nil];
+    NSFetchedResultsController *frc = [self frcFromTV:tableView];
+    NSManagedObjectID *itemid = [[frc objectAtIndexPath:indexPath] objectID];
+    Item *item = (Item*)[frc.managedObjectContext existingObjectWithID:itemid error:nil];
     
     if ([item.listed boolValue]) {
         item.listed = [NSNumber numberWithBool:NO];
@@ -219,8 +228,37 @@
         NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     }
     ItemViewController *itemViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewController"];
-    itemViewController.selectedItemID = [[self.frc objectAtIndexPath:indexPath] objectID];
+    itemViewController.selectedItemID = [[[self frcFromTV:tableView] objectAtIndexPath:indexPath] objectID];
     [self.navigationController pushViewController:itemViewController animated:YES];
 }
 
+#pragma mark - SEARCH
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    if (debug == 1) {
+        NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    }
+    if (searchString.length > 0) {
+        NSLog(@"--> Searching for '%@'", searchString);
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
+        
+        NSArray *sortDescriptors = [NSArray arrayWithObjects:
+                                    [NSSortDescriptor sortDescriptorWithKey:@"locationAtHome.storeIn" ascending:YES],
+                                    [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil];
+        CoreDataHelper *cdh = [(AppDelegate *)[[UIApplication sharedApplication] delegate] cdh];
+        [self reloadSearchFRCForPredicate:predicate
+                               withEntity:@"Item"
+                                inContext:cdh.context
+                      withSortDescriptors:sortDescriptors
+                   withSectionNameKeyPath:@"locationAtHome.storeIn"];
+    } else {
+        return NO;
+    }
+    return YES;
+}
 @end
+
+
+
+
+
+
